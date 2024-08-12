@@ -19,6 +19,7 @@ async function getResourceByAttribute (vid, vkey, resource) {
   if ( queryAttribute2 ){
     urlQueryParams = urlQueryParams+`&${queryAttribute2}=${queryValue2}`;
   }
+  console.log('host', host)
   const headers = {
     'Authorization': calculateAuthorizationHeader(vid, vkey, host, resourceUri, 
       urlQueryParams, 'GET')
