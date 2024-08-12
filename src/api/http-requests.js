@@ -26,6 +26,7 @@ async function getResourceByAttribute (vid, vkey, resource) {
 
   const appUrl = `https://${host}${resourceUri}${urlQueryParams}`;
   try {
+    core.info('appUrl', appUrl)
     const response = await axios.get(appUrl, { headers });
     return response.data; // Access the response data
   } catch (error) {
