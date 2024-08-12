@@ -19,7 +19,6 @@ async function getResourceByAttribute (vid, vkey, resource) {
   if ( queryAttribute2 ){
     urlQueryParams = urlQueryParams+`&${queryAttribute2}=${queryValue2}`;
   }
-  console.log('host', host)
   const headers = {
     'Authorization': calculateAuthorizationHeader(vid, vkey, host, resourceUri, 
       urlQueryParams, 'GET')
@@ -58,6 +57,12 @@ async function getResource (vid, vkey, resource) {
 async function createResource(vid, vkey, resource) {
   const resourceUri = resource.resourceUri;
   const resourceData = resource.resourceData;
+  let host = appConfig().us;
+  if (vid.startsWith('vera01ei-')) {
+    host = appConfig().eu;
+    vid = vid.split('-')[1] || '';  // Extract part after '-'
+    vkey = vkey.split('-')[1] || ''; // Extract part after '-'
+  }
   const headers = {
     'Authorization': calculateAuthorizationHeader(vid, vkey, host, resourceUri, 
       '', 'POST')
