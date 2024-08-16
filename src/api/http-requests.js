@@ -2,6 +2,7 @@ const axios = require('axios');
 const { calculateAuthorizationHeader } = require('./veracode-hmac.js');
 const appConfig = require('../app-cofig.js');
 const core = require('@actions/core');
+const { getHostAndCredentials } = require('../util.js')
 
 async function getResourceByAttribute (vid, vkey, resource) {
   const resourceUri = resource.resourceUri;
