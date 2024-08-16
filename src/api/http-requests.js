@@ -10,17 +10,12 @@ async function getResourceByAttribute (vid, vkey, resource) {
   const queryAttribute2 = resource.queryAttribute2;
   const queryValue2 = resource.queryValue2;
   var urlQueryParams = queryAttribute !== '' ? `?${queryAttribute}=${queryValue}` : '';
-  let host = appConfig().us;
-  if (vid.startsWith('vera01ei-')) {
-    host = appConfig().eu;
-    vid = vid.split('-')[1] || '';  // Extract part after '-'
-    vkey = vkey.split('-')[1] || ''; // Extract part after '-'
-  }
+  const { host, vid: updatedVid, vkey: updatedVkey } = getHostAndCredentials(vid, vkey);
   if ( queryAttribute2 ){
     urlQueryParams = urlQueryParams+`&${queryAttribute2}=${queryValue2}`;
   }
   const headers = {
-    'Authorization': calculateAuthorizationHeader(vid, vkey, host, resourceUri, 
+    'Authorization': calculateAuthorizationHeader(updatedVid, updatedVkey, host, resourceUri, 
       urlQueryParams, 'GET')
   };
 
@@ -36,14 +31,9 @@ async function getResourceByAttribute (vid, vkey, resource) {
 
 async function getResource (vid, vkey, resource) {
   const resourceUri = resource.resourceUri;
-  let host = appConfig().us;
-  if (vid.startsWith('vera01ei-')) {
-    host = appConfig().eu;
-    vid = vid.split('-')[1] || '';  // Extract part after '-'
-    vkey = vkey.split('-')[1] || ''; // Extract part after '-'
-  }
+  const { host, vid: updatedVid, vkey: updatedVkey } = getHostAndCredentials(vid, vkey);
   const headers = {
-    'Authorization': calculateAuthorizationHeader(vid, vkey, host, resourceUri, '', 'GET')
+    'Authorization': calculateAuthorizationHeader(updatedVid, updatedVkey, host, resourceUri, '', 'GET')
   };
   const appUrl = `https://${host}${resourceUri}`;
   try {
@@ -57,14 +47,9 @@ async function getResource (vid, vkey, resource) {
 async function createResource(vid, vkey, resource) {
   const resourceUri = resource.resourceUri;
   const resourceData = resource.resourceData;
-  let host = appConfig().us;
-  if (vid.startsWith('vera01ei-')) {
-    host = appConfig().eu;
-    vid = vid.split('-')[1] || '';  // Extract part after '-'
-    vkey = vkey.split('-')[1] || ''; // Extract part after '-'
-  }
+  const { host, vid: updatedVid, vkey: updatedVkey } = getHostAndCredentials(vid, vkey);
   const headers = {
-    'Authorization': calculateAuthorizationHeader(vid, vkey, host, resourceUri, 
+    'Authorization': calculateAuthorizationHeader(updatedVid, updatedVkey, host, resourceUri, 
       '', 'POST')
   };
 
