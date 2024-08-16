@@ -1,3 +1,5 @@
+const appConfig = require('./app-cofig')
+
 function getHostAndCredentials(vid, vkey) {
   let host = appConfig().us; // Default to the US host
 
