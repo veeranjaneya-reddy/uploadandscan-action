@@ -114170,6 +114170,7 @@ async function createSandboxBuild(vid, vkey, jarName, appId, version, deleteinco
     '-version', version
   ];
   let output = await runCommand(createBuildCommand, createBuildArguments);
+  console.log('output', output);
   if (output === 'failed' && deleteincompletescan === 'false') {
     throw new Error(`Error creating build: ${output}`);
   }
@@ -114185,6 +114186,7 @@ async function createSandboxBuild(vid, vkey, jarName, appId, version, deleteinco
         '-appid', appId,
       ]
     );
+    console.log(`deleteOutput: ${deleteOutput}`);
     if (deleteOutput === 'failed') {
       throw new Error(`Error deleting build: ${deleteOutput}`);
     }
@@ -138509,6 +138511,7 @@ async function run() {
       core.info(`Veracode Policy Scan Created, Build Id: ${buildId}`);
     }
   } catch (error) {
+    console.error(`Error creating build: ${error}`);
     core.setFailed('Failed to create Veracode Scan. App not in state where new builds are allowed.');
     return;
   }
