@@ -35,6 +35,7 @@ async function runCommand (command, args = []){
   try {
     return execFileSync(command, args);
   } catch (error){
+    console.error(error);
     console.error(error.message);
     return 'failed';
   }
