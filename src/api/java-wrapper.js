@@ -38,9 +38,9 @@ async function runCommand (command, args = []){
     console.error('Error Status:', error.status);   // Exit code (e.g., 2)
   console.error('Error Signal:', error.signal);   // Signal received (if any)
   console.error('Error PID:', error.pid);         // Process ID
-  console.error('Error Output:', error.output?.toString()); // Combined output (buffers)
-  console.error('Error Stdout:', error.stdout?.toString()); // Stdout buffer
-  console.error('Error Stderr:', error.stderr?.toString()); // Stderr buffer
+  console.error('Error Output:', error.output?.toString('utf8')); // Combined output (buffers)
+  console.error('Error Stdout:', error.stdout?.toString('utf8')); // Stdout buffer
+  console.error('Error Stderr:', error.stderr?.toString('utf8')); // Stderr buffer
   console.error('Error Message:', error.message);
   }
 }
