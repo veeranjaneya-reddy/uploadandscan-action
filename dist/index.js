@@ -113701,13 +113701,17 @@ async function downloadJar ()  {
   return `vosp-api-wrappers-java-${latestVersion}.jar`;
 }
 
-async function runCommand (command, args = []){
+async function runCommand(command, args = []) {
   try {
-    return execFileSync(command, args);
-  } catch (error){
-    console.error(error);
-    console.error(error.message);
-    return 'failed';
+    const result = execFileSync(command, args, { encoding: 'utf-8' }); // Ensure output as string
+    console.log(result); // Print output for debugging
+    return result;
+  } catch (error) {
+    console.error('Command execution failed.');
+    console.error('Error Message:', error.message); // Print error message
+    console.error('STDOUT:', error.stdout ? error.stdout.toString() : 'No stdout'); // Standard output
+    console.error('STDERR:', error.stderr ? error.stderr.toString() : 'No stderr');
+    throw error; // Rethrow error for further debugging
   }
 }
 
