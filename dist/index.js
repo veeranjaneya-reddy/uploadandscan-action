@@ -113705,9 +113705,13 @@ async function runCommand (command, args = []){
   try {
     return await execFileSync(command, args);
   } catch (error){
-    console.error('error', error);
-    console.error('error.message', error.message);
-    return 'failed';
+    console.error('Error Status:', error.status);   // Exit code (e.g., 2)
+  console.error('Error Signal:', error.signal);   // Signal received (if any)
+  console.error('Error PID:', error.pid);         // Process ID
+  console.error('Error Output:', error.output?.toString()); // Combined output (buffers)
+  console.error('Error Stdout:', error.stdout?.toString()); // Stdout buffer
+  console.error('Error Stderr:', error.stderr?.toString()); // Stderr buffer
+  console.error('Error Message:', error.message);
   }
 }
 
