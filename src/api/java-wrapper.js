@@ -33,7 +33,7 @@ async function downloadJar ()  {
 
 async function runCommand (command, args = []){
   try {
-    return execFileSync(command, args);
+    return await execFileSync(command, args);
   } catch (error){
     console.error('error', error);
     console.error('error.message', error.message);
